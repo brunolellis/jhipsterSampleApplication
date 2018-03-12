@@ -1,0 +1,58 @@
+
+
+entity Restaurant {
+	name String,
+    address String,
+    phone String,
+    email String
+}
+
+entity MenuItem {
+	name String,
+    price BigDecimal,
+    calories Integer
+}
+
+entity Category {
+	name String
+}
+
+entity Customer {
+	name String,
+    email String,
+    address String
+}
+
+entity Order {
+	name String,
+    total BigDecimal,
+    coupon String,
+    status OrderStatus
+}
+
+enum OrderStatus {
+	NEW,
+    PAYMENT_ACCEPTED,
+    IN_PROGRESS,
+    OUT_FOR_DELIVERY,
+    PICK_UP,
+    DELIVERED,
+    PROBLEM
+}
+
+entity OrderItem {
+	quantity Integer,
+    details String
+}
+
+
+relationship OneToOne {
+	MenuItem{category} to Category,
+    OrderItem{menuItem} to MenuItem
+}
+
+relationship OneToMany {
+	Restaurant{items} to MenuItem,
+    Order{items} to OrderItem,
+    Customer{orders} to Order
+}
